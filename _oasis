@@ -1,0 +1,42 @@
+OASISFormat: 0.4
+Name:        Stellaris
+Version:     0.1.0
+Synopsis:    Stellaris
+Authors:     Gabriel Radanne
+License:     ISC
+Plugins:     META (0.4), DevFiles (0.4)
+BuildTools:  ocamlbuild
+
+AlphaFeatures: ocamlbuild_more_args
+OCamlVersion: >= 4.02
+
+
+Library stellaris
+  Path: src
+  Modules: Stellaris
+  InternalModules: Grammar, Ast, Condition
+  Build: false
+  BuildDepends:
+
+Executable effecttrigger
+  Path: tools
+  MainIs: effecttrigger.ml
+  BuildDepends: re, containers, fmt, ppx_deriving.std
+
+Document "stellaris"
+  Type: ocamlbuild (0.3)
+  BuildTools: ocamldoc
+  Title: API reference for Stellaris
+  XOCamlbuildPath: .
+  XOCamlbuildExtraArgs:
+    "-docflags '-t Stellaris -colorize-code -short-functors -charset utf-8'"
+  XOCamlbuildLibraries: stellaris
+
+SourceRepository head
+  Type: git
+  Location: https://github.com/Drup/stellaris.git
+  Browser: https://github.com/Drup/stellaris
+
+#Local Variables:
+#compile-command: "oasis setup"
+#End:

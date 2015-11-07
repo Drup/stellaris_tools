@@ -1,0 +1,11 @@
+# OASIS_START
+# DO NOT EDIT (digest: 87cb95621b265f3aaba13f9023ae672b)
+version = "0.1.0"
+description = "Stellaris"
+archive(byte) = "stellaris.cma"
+archive(byte, plugin) = "stellaris.cma"
+archive(native) = "stellaris.cmxa"
+archive(native, plugin) = "stellaris.cmxs"
+exists_if = "stellaris.cma"
+# OASIS_STOP
+
