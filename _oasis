@@ -21,7 +21,7 @@ Library stellaris
 Executable effecttrigger
   Path: tools
   MainIs: effecttrigger.ml
-  BuildDepends: re, containers, fmt, ppx_deriving.std
+  BuildDepends: re, containers, fmt, ppx_deriving.std cmdliner
 
 Document "stellaris"
   Type: ocamlbuild (0.3)

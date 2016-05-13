@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: dd2a8b07f82f82ddcd2ddd21a3a1669f)
+# DO NOT EDIT (digest: b73f265b316b60cae6d5e2b0eff79cc1)
 # Ignore VCS directories, you can use the same kind of rule outside
 # OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
@@ -19,11 +19,11 @@ true: annot, bin_annot
 # Executable effecttrigger
 "tools/effecttrigger.byte": package(containers)
 "tools/effecttrigger.byte": package(fmt)
-"tools/effecttrigger.byte": package(ppx_deriving.std)
+"tools/effecttrigger.byte": package(ppx_deriving.std cmdliner)
 "tools/effecttrigger.byte": package(re)
 <tools/*.ml{,i,y}>: package(containers)
 <tools/*.ml{,i,y}>: package(fmt)
-<tools/*.ml{,i,y}>: package(ppx_deriving.std)
+<tools/*.ml{,i,y}>: package(ppx_deriving.std cmdliner)
 <tools/*.ml{,i,y}>: package(re)
 # OASIS_STOP
 

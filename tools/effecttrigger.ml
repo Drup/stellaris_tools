@@ -111,13 +111,43 @@ let extract kind g =
 let parse kind s =
   List.map (extract kind) @@ Re.all regex s
 
-let main () =
-  let file = Sys.argv.(1) in
-  let filecontent = CCIO.read_all @@ open_in file in
-  let content = parse Trigger filecontent  in
-  Format.printf "%a@."
-    (* (Fmt.(list ~sep:nop) pp_raw) *)
-    Wiki.pp
-    content
 
-let () = main ()
+let main kind pp file =
+  let filecontent = CCIO.read_all @@ open_in file in
+  let content = parse kind filecontent  in
+  Format.printf "%a@." pp content
+
+module Cmd = struct
+  open Cmdliner
+
+  let kind =
+    let triggers = Some Trigger, Arg.info ["t"; "triggers"] in
+    let effects = Some Effect, Arg.info ["e"; "effects"] in
+    Arg.(required @@ vflag None [triggers; effects])
+
+  let output =
+    let raw = Fmt.(list ~sep:nop) pp_raw in
+    let wiki = Wiki.pp in
+    let pretty = Fmt.list pp in
+    let l = [
+      raw, Arg.info ["raw"] ;
+      wiki, Arg.info ["wiki"] ;
+    ]
+    in Arg.(value @@ vflag pretty l)
+
+  let file =
+    let i = Arg.info [] in
+    Arg.(required @@ pos 0 (some file) None i)
+
+  let main () =
+    let term =
+      Term.(pure main $ kind $ output $ file)
+    in
+    let info = Term.info "effecttrigger" in
+    match Term.eval (term, info) with
+    | `Ok () | `Version | `Help -> exit 0
+    | `Error _ -> exit 1
+
+end
+
+let () = Cmd.main ()
