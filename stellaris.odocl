@@ -1,4 +1,6 @@
 # OASIS_START
-# DO NOT EDIT (digest: 405985c1d896cbd54b701a7cc20568e1)
-src/Stellaris
+# DO NOT EDIT (digest: 60993263f1d3ed2cf2bffe7055bb372b)
+src/Grammar
+src/Ast
+src/Condition
 # OASIS_STOP

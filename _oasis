@@ -13,15 +13,14 @@ OCamlVersion: >= 4.02
 
 Library stellaris
   Path: src
-  Modules: Stellaris
-  InternalModules: Grammar, Ast, Condition
+  Modules: Grammar, Ast, Condition
   Build: false
   BuildDepends:
 
 Executable effecttrigger
   Path: tools
   MainIs: effecttrigger.ml
-  BuildDepends: re, containers, fmt, ppx_deriving.std cmdliner
+  BuildDepends: re containers fmt cmdliner
 
 Document "stellaris"
   Type: ocamlbuild (0.3)
