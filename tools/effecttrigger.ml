@@ -73,6 +73,28 @@ module Wiki = struct
 end
 
 
+module Emacs = struct
+
+  let pp_one ppf { name ; kind ; desc ; scopes ; targets } =
+    Format.fprintf ppf
+      "@[<v2>#(%S 0 1@,\
+       (:kind \"%a\"@,\
+        :scopes \"%a\"@,\
+        :targets \"%a\"@,\
+        :desc \"%s\"))@]"
+      name
+      pp_kind kind
+      Fmt.(iter ~sep:(const char ' ') SSet.iter string) scopes
+      Fmt.(iter ~sep:(const char ' ') SSet.iter string) targets
+      (String.capitalize_ascii desc)
+
+  let pp ppf l =
+    Fmt.pf ppf
+      "@[<v>'(%a@,)@]@."
+      Fmt.(list ~sep:cut pp_one) l
+end
+
+
 let regex =
   let open Re in
   let first_line = seq [
@@ -129,9 +151,11 @@ module Cmd = struct
     let raw = Fmt.(list ~sep:nop) pp_raw in
     let wiki = Wiki.pp in
     let pretty = Fmt.list pp in
+    let emacs = Emacs.pp in
     let l = [
       raw, Arg.info ["raw"] ;
       wiki, Arg.info ["wiki"] ;
+      emacs, Arg.info ["emacs"] ;
     ]
     in Arg.(value @@ vflag pretty l)
 
